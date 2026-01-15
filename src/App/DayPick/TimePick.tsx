@@ -11,7 +11,6 @@ const TimePick = ({selectedDay}: any) => {
         <li className="timeZone">12:00-12:50</li>
         <li className="timeZone">12:00-12:50</li>
         <li className="timeZone">12:00-12:50</li>
-        <li className="timeZone">12:00-12:50</li>
       </ul> : null
   )
 }
