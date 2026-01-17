@@ -1,11 +1,11 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {DayPicker} from 'react-day-picker';
-import { ru } from "react-day-picker/locale";
+import { DayPicker } from 'react-day-picker';
+import { ru } from 'react-day-picker/locale';
 
 import TimePick from './TimePick';
 
-import "react-day-picker/style.css";
+import 'react-day-picker/style.css';
 
 const DayPick = () => {
   const [selectedDay, setSelectedDay] = useState();
@@ -14,15 +14,17 @@ const DayPick = () => {
   };
   return (
     <div className="bookingBlock">
-      <DayPicker mode={'single'}
-                 selected={selectedDay}
-                 onSelect={handleSelect}
-                 required={true}
-                 locale={ru}
-                 className={'dayPicker'}/>
+      <DayPicker
+        mode={'single'}
+        selected={selectedDay}
+        onSelect={handleSelect}
+        required={true}
+        locale={ru}
+        className={'dayPicker'}
+      />
       <TimePick selectedDay={selectedDay} />
     </div>
-  )
-}
+  );
+};
 
 export default DayPick;

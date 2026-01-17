@@ -18,7 +18,11 @@
     "preview": "yarn workspace client preview",
     "prisma:generate": "yarn workspace server prisma:generate",
     "prisma:migrate": "yarn workspace server prisma:migrate",
-    "prisma:studio": "yarn workspace server prisma:studio"
+    "prisma:studio": "yarn workspace server prisma:studio",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

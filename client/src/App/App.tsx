@@ -6,5 +6,5 @@ export const App = () => {
       <h1>Website psy</h1>
       <DayPick />
     </div>
-  )
-}
+  );
+};
