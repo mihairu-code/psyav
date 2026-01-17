@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
     "dev:client": "yarn workspace client dev",
@@ -18,7 +21,17 @@
     "prisma:studio": "yarn workspace server prisma:studio"
   },
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "@eslint/js": "^9.39.2",
+    "concurrently": "^8.2.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "globals": "^15.0.0",
+    "prettier": "^3.8.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0"
   },
   "engines": {
     "node": ">=18.0.0"
