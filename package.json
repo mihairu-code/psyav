@@ -2,27 +2,25 @@
   "name": "psylogic",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "main": "index.js",
   "license": "MIT",
+  "workspaces": ["client", "server"],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@prisma/client": "^7.2.0",
-    "prisma": "^7.2.0",
-    "react": "^19.2.3",
-    "react-day-picker": "^9.13.0",
-    "react-dom": "^19.2.3"
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
+    "dev:client": "yarn workspace client dev",
+    "dev:server": "yarn workspace server dev",
+    "build": "yarn build:client && yarn build:server",
+    "build:client": "yarn workspace client build",
+    "build:server": "yarn workspace server build",
+    "start": "yarn workspace server start",
+    "preview": "yarn workspace client preview",
+    "prisma:generate": "yarn workspace server prisma:generate",
+    "prisma:migrate": "yarn workspace server prisma:migrate",
+    "prisma:studio": "yarn workspace server prisma:studio"
   },
   "devDependencies": {
-    "@types/node": "^25.0.9",
-    "@types/react": "^19.2.8",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.2.2",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
