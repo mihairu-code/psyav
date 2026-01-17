@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AppointmentStatus {
+  BOOKED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum SessionFormat {
+  ONLINE
+  OFFLINE
+}
+
+model Psychologist {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+
+  timeSlots TimeSlot[]
+  sessions  Session[]
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  createdAt DateTime @default(now())
+
+  appointments Appointment[]
+}
+
+model TimeSlot {
+  id          String   @id @default(uuid())
+  startTime   DateTime
+  endTime     DateTime
+  isAvailable Boolean  @default(true)
+
+  psychologistId String
+  psychologist   Psychologist @relation(fields: [psychologistId], references: [id])
+
+  appointment Appointment?
+
+  @@index([startTime, endTime])
+}
+
+model Appointment {
+  id          String            @id @default(uuid())
+  status      AppointmentStatus
+  format      SessionFormat
+  meetingLink String?
+  createdAt   DateTime          @default(now())
+
+  clientId String
+  client   Client @relation(fields: [clientId], references: [id])
+
+  timeSlotId String   @unique
+  timeSlot   TimeSlot @relation(fields: [timeSlotId], references: [id])
+
+  payment      Payment?
+  session      Session?
+  Notification Notification[]
+}
+
+model Payment {
+  id         String        @id @default(uuid())
+  amount     Int
+  status     PaymentStatus
+  yookassaId String        @unique
+  createdAt  DateTime      @default(now())
+
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  notes     String?
+  summary   String?
+  createdAt DateTime @default(now())
+
+  appointmentId String      @unique
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+
+  psychologistId String
+  psychologist   Psychologist @relation(fields: [psychologistId], references: [id])
+}
+
+model Notification {
+  id            String    @id @default(uuid())
+  type          String
+  sentAt        DateTime?
+  appointmentId String
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+}
